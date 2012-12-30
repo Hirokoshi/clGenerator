@@ -1,8 +1,8 @@
 SOURCES += \
-    MainWindow.cpp \
+    sources/MainWindow.cpp \
     main.cpp \
-    ResultWindow.cpp
+    sources/ResultWindow.cpp
 
 HEADERS += \
-    MainWindow.h \
-    ResultWindow.h
+    headers/MainWindow.h \
+    headers/ResultWindow.h
