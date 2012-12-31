@@ -24,13 +24,13 @@
  *  Contact: hirokoshi@gw2.fr OR melyasfa@gmail.com
  */
 
-#include "MainWindow.h"
-#include "ResultWindow.h"
+#include "headers/MainWindow.h"
+#include "headers/ResultWindow.h"
 
 MainWindow::MainWindow() : QWidget() {
     //initialisation de la fenêtre
     initWindow();
-    setWindowTitle("clGenerator - Générateur de classes C++");
+    setWindowTitle(trUtf8("clGenerator - Générateur de classes C++"));
 
     //Connexions
     connect(m_quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
@@ -54,16 +54,16 @@ void MainWindow::initWindow() {
     m_parentClassEdit = new QLineEdit;
 
     m_defineLayout = new QFormLayout;
-    m_defineLayout->addRow("&Nom", m_nameClassEdit);
-    m_defineLayout->addRow("Classe &mère", m_parentClassEdit);
+    m_defineLayout->addRow(trUtf8("&Nom"), m_nameClassEdit);
+    m_defineLayout->addRow(trUtf8("Classe &mère"), m_parentClassEdit);
 
-    m_defineGroup = new QGroupBox("Définition de la classe");
+    m_defineGroup = new QGroupBox(trUtf8("Définition de la classe"));
     m_defineGroup->setLayout(m_defineLayout);
 
     /**
      * @ - Options
      **/
-    m_protection = new QCheckBox("Protéger le &header contre les inclusions multiples");
+    m_protection = new QCheckBox(trUtf8("Protéger le &header contre les inclusions multiples"));
     m_protection->setChecked(true);
     m_headerEdit = new QLineEdit;
 
@@ -71,10 +71,10 @@ void MainWindow::initWindow() {
     protectionLayout->addWidget(m_protection);
     protectionLayout->addWidget(m_headerEdit);
 
-    m_constructor = new QCheckBox("Générer un &constructeur par défaut");
+    m_constructor = new QCheckBox(trUtf8("Générer un &constructeur par défaut"));
     m_constructor->setChecked(true);
-    m_destructor = new QCheckBox("Générer un &destructeur");
-    m_license = new QCheckBox("Inclure le texte de la license GNU");
+    m_destructor = new QCheckBox(trUtf8("Générer un &destructeur"));
+    m_license = new QCheckBox(trUtf8("Inclure le texte de la license GNU"));
 
     m_optionsLayout = new QVBoxLayout;
     m_optionsLayout->addLayout(protectionLayout);
@@ -82,22 +82,22 @@ void MainWindow::initWindow() {
     m_optionsLayout->addWidget(m_destructor);
     m_optionsLayout->addWidget(m_license);
 
-    m_optionsGroup = new QGroupBox("Options");
+    m_optionsGroup = new QGroupBox(trUtf8("Options"));
     m_optionsGroup->setLayout(m_optionsLayout);
 
     /**
      * @ - Attributs
      **/
     m_properties = new QListWidget;
-    m_addPropButton = new QPushButton("Ajouter un attribut");
-    m_label = new QLabel("(Double cliquez sur un attribut pour le supprimer)");
+    m_addPropButton = new QPushButton(trUtf8("Ajouter un attribut"));
+    m_label = new QLabel(trUtf8("(Double cliquez sur un attribut pour le supprimer)"));
 
     m_propertiesLayout = new QVBoxLayout;
     m_propertiesLayout->addWidget(m_addPropButton);
     m_propertiesLayout->addWidget(m_label);
     m_propertiesLayout->addWidget(m_properties);
 
-    m_propertiesGroup = new QGroupBox("Ajouter des attributs");
+    m_propertiesGroup = new QGroupBox(trUtf8("Ajouter des attributs"));
     m_propertiesGroup->setCheckable(true);
     m_propertiesGroup->setChecked(false);
     m_propertiesGroup->setLayout(m_propertiesLayout);
@@ -106,15 +106,15 @@ void MainWindow::initWindow() {
      * @ - Includes
      **/
     m_includes = new QListWidget;
-    m_addIncludeButton = new QPushButton("Ajouter un fichier");
-    m_labelInclude = new QLabel("(Double cliquez sur un fichier pour le supprimer)");
+    m_addIncludeButton = new QPushButton(trUtf8("Ajouter un fichier"));
+    m_labelInclude = new QLabel(trUtf8("(Double cliquez sur un fichier pour le supprimer)"));
 
     m_includeLayout = new QVBoxLayout;
     m_includeLayout->addWidget(m_addIncludeButton);
     m_includeLayout->addWidget(m_labelInclude);
     m_includeLayout->addWidget(m_includes);
 
-    m_includeGroup = new QGroupBox("Ajouter des fichiers à inclure");
+    m_includeGroup = new QGroupBox(trUtf8("Ajouter des fichiers à inclure"));
     m_includeGroup->setCheckable(true);
     m_includeGroup->setChecked(false);
     m_includeGroup->setLayout(m_includeLayout);
@@ -127,11 +127,11 @@ void MainWindow::initWindow() {
     m_commentariesClass = new QTextEdit;
 
     m_commentariesLayout = new QFormLayout;
-    m_commentariesLayout->addRow("&Auteur", m_authorClass);
-    m_commentariesLayout->addRow("Da&te de création", m_dateClass);
-    m_commentariesLayout->addRow("&Rôle de la classe", m_commentariesClass);
+    m_commentariesLayout->addRow(trUtf8("&Auteur"), m_authorClass);
+    m_commentariesLayout->addRow(trUtf8("Da&te de création"), m_dateClass);
+    m_commentariesLayout->addRow(trUtf8("&Rôle de la classe"), m_commentariesClass);
 
-    m_commentariesGroup = new QGroupBox("Ajouter des commentaires");
+    m_commentariesGroup = new QGroupBox(trUtf8("Ajouter des commentaires"));
     m_commentariesGroup->setCheckable(true);
     m_commentariesGroup->setChecked(true);
     m_commentariesGroup->setLayout(m_commentariesLayout);
@@ -139,8 +139,8 @@ void MainWindow::initWindow() {
     /**
      * @ - Boutons
      **/
-    m_generateButton = new QPushButton("Générer");
-    m_quitButton = new QPushButton("Quitter");
+    m_generateButton = new QPushButton(trUtf8("Générer"));
+    m_quitButton = new QPushButton(trUtf8("Quitter"));
 
     m_buttonsLayout = new QHBoxLayout;
     m_buttonsLayout->addWidget(m_generateButton);
@@ -211,13 +211,13 @@ void MainWindow::generateClass() {
             codeClass += "/*\n";
 
             if(!m_authorClass->text().isEmpty()) {
-                codeClass += "Auteur : " + m_authorClass->text() + "\n";
+                codeClass += trUtf8("Auteur : ") + m_authorClass->text() + "\n";
             }
 
-            codeClass += "Date de création : " + m_dateClass->text();
+            codeClass += trUtf8("Date de création : ") + m_dateClass->text();
 
             if(!m_commentariesClass->toPlainText().isEmpty()) {
-                codeClass += "\n\nRôle :\n";
+                codeClass += trUtf8("\n\nRôle :\n");
                 codeClass += "" + m_commentariesClass->toPlainText();
             }
 
@@ -340,7 +340,7 @@ void MainWindow::generateClass() {
         ResultWindow *result = new ResultWindow(codeClass, codeCpp, nameClass, this);
         result->exec();
     } else {
-        QMessageBox::critical(this, "Erreur", "Le champ \"Nom\" doit être rempli.");
+        QMessageBox::critical(this, trUtf8("Erreur"), trUtf8("Le champ \"Nom\" doit être rempli."));
     }
 }
 
@@ -366,7 +366,7 @@ void MainWindow::setTextHeaderEnabled(int state) {
 
 void MainWindow::addProperty() {
     bool ok = false;
-    QString property = QInputDialog::getText(this, "Saisir une information", "Entrez votre attribut (avec le type)", QLineEdit::Normal, QString(), &ok);
+    QString property = QInputDialog::getText(this, trUtf8("Saisir une information"), trUtf8("Entrez votre attribut (avec le type)"), QLineEdit::Normal, QString(), &ok);
 
     if(ok && !property.isEmpty()) {
         QListWidgetItem *newItem = new QListWidgetItem;
@@ -382,7 +382,7 @@ void MainWindow::deleteProperty(QListWidgetItem *item) {
 
 void MainWindow::addFile() {
     bool ok = false;
-    QString fileName = QInputDialog::getText(this, "Saisir une information", "Entrez le nom de votre fichier", QLineEdit::Normal, QString(), &ok);
+    QString fileName = QInputDialog::getText(this, trUtf8("Saisir une information"), trUtf8("Entrez le nom de votre fichier"), QLineEdit::Normal, QString(), &ok);
 
     if(ok && !fileName.isEmpty()) {
         QListWidgetItem *newItem = new QListWidgetItem;

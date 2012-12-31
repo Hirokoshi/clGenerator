@@ -6,3 +6,5 @@ SOURCES += \
 HEADERS += \
     headers/MainWindow.h \
     headers/ResultWindow.h
+
+TRANSLATIONS = clgenerator_en.ts

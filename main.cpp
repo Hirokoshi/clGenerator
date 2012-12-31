@@ -29,11 +29,12 @@
 #include <QTranslator>
 #include <QLocale>
 #include <QLibraryInfo>
-#include "MainWindow.h"
+#include "headers/MainWindow.h"
 
 int main(int argc, char* argv[]) {
     //UTF-8
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+    QTextCodec::setCodecForTr(QTextCodec::codecForName("utf8"));
 
     //Application
     QApplication app(argc, argv);
@@ -41,7 +42,7 @@ int main(int argc, char* argv[]) {
     //Translations
     QString locale = QLocale::system().name().section('_', 0, 0);
     QTranslator translator;
-    translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    translator.load(QString("clgenerator_") + locale);
     app.installTranslator(&translator);
 
     //Lancement de la fenêtre principale
